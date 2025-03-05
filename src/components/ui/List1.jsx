@@ -1,29 +1,19 @@
-import React from 'react'
+import React from "react";
+import "./List1.css"; // Import file CSS
 
-function List1({products}) {
-    
+function List1({ products }) {
   return (
-    <>
-        <div>
-            <table>
-                <tr>
-                    <th>STT</th>
-                    <th>Title</th>
-                    <th>Price</th>
-                    <th>Description</th>
-                </tr>
-                {products.length > 0 && products.map(product =>
-                    <tr>
-                       <td>{product.id}</td>
-                       <td>{product.title}</td>
-                       <td>{product.price}</td>
-                       <td>{product.description}</td>
-                    </tr>
-                )}
-            </table>
-        </div>
-    </>
-  )
+    <div className="container">
+      {products.length > 0 &&
+        products.map((product) => (
+          <div key={product.id} className="card">
+            <h3>{product.title}</h3>
+            <p>Price: ${product.price}</p>
+            <p>{product.description}</p>
+          </div>
+        ))}
+    </div>
+  );
 }
 
-export default List1
+export default List1;

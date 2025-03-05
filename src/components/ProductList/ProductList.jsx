@@ -7,15 +7,15 @@ import Button from '../common/Button';
 import data from '../../assets/data/data';
 
 function ProductList() {
-    const [visiable, setVisiable] = useState(false);
+    const [isGridLayout, setGridLayout] = useState(false);
     const handleDisplay = () => {
-        setVisiable(!visiable);
+        setGridLayout(!isGridLayout)
     };
 
     return (
         <div className='mt-4'>
             <Button onClick={handleDisplay} size="medium" variant="primary" children= "Chuyển Layout"/>
-            {visiable ? <List1 products={data} /> : <List2 products={data} />}
+            {isGridLayout ? <List1 products={data} /> : <List2 products={data} />}
         </div>
     );
 }

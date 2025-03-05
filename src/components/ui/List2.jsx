@@ -1,20 +1,23 @@
-import React from 'react';
-import './List2.css';
+import React from "react";
+import "./List2.css";
 
 function List2({ products }) {
   return (
     <>
       <h2>Danh sách sản phẩm</h2>
-      <ul >
+      <div className="list-container">
         {products.length > 0 &&
-          products.map(product => (
-            <li key={product.id}>
-              <span><strong>Title:</strong> {product.title} </span>
-              <span><strong> Price:</strong> {product.price} </span>
-              <span><strong> Description:</strong> {product.description}</span>
-            </li>
+          products.map((product) => (
+            <div key={product.id} className="product-card">
+              <div>
+                  <h3>Sản phẩm</h3>
+              </div>
+              <span>{product.title}</span>
+              <span>Price:</span> ${product.price}
+              <span>Description:</span> {product.description}
+            </div>
           ))}
-      </ul>
+      </div>
     </>
   );
 }

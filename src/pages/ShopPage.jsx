@@ -1,22 +1,28 @@
-import React, { useState } from 'react';
-
-import List1 from '../components/ui/List1';
-import List2 from '../components/ui/List2';
-import Button from '../components/common/Button';
-
-import data from '../assets/data/data';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 function ShopPage() {
-    const [visiable, setVisiable] = useState(false);
-    const handleDisplay = () => {
-        setVisiable(!visiable);
-    };
-
+    const [products, setProducts] = useState([]);
+    async function fetchProduct() {
+        const res = await fetch("http://localhost:3000/products");
+        const data = await res.json();
+        setProducts(data);
+    }
+    useEffect(() => {
+        fetchProduct();
+    }, [])
+    console.log(products);
     return (
-        <div>
-            <Button onClick={handleDisplay} size="medium" variant="primary" children= "Chuyển Layout"/>
-            {visiable ? <List1 products={data} /> : <List2 products={data} />}
-        </div>
+       <>
+        <h1>Hot sale</h1>
+        {products && products.map((item) =>
+            <div key={item.id}>
+                <h2>{item.title}</h2>
+                <p>Price: {item.price}</p>
+                <Link to={`/product-detail/${item.id}`} >Xem chi tiết sản phẩm</Link>
+            </div>
+        )}
+       </>
     );
 }
 
