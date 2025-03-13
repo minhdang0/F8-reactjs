@@ -118,8 +118,7 @@ function App() {
                   <button 
                   className="task-btn done"
                   onClick={() => {
-                    if(taskDone.includes(item) === false ) handleDone(item, true);
-                    else handleDone(item, false );
+                    handleDone(item, taskDone.includes(item) === false );
                   } }>{taskDone.includes(item) === false ? "MARK AS DONE" : "MARK AS UNDONE"}</button>
                   <button 
                   className="task-btn delete" 
