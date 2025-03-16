@@ -5,6 +5,7 @@ import "./Search.css";
 
 const Search = () => {
   const params = new URLSearchParams(location.search);
+  const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState(params.get("q") || "");
 
   useEffect(() => {
@@ -29,10 +30,7 @@ const Search = () => {
           }}
         />
       </div>
-
       <ProductList query={query} />
-
-      <p className="empty-message">Không tìm thấy sản phẩm nào.</p>
     </div>
   );
 };

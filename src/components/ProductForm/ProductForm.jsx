@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import navigate from "navigate";
 import "./ProductForm.css";
 
-const ProductForm = ({ submitTitle = "" }) => {
+const ProductForm = ({ submitTitle = "" , setLoading}) => {
   const [product, setProduct] = useState({
     title: "",
     description: "",
@@ -45,7 +45,7 @@ const ProductForm = ({ submitTitle = "" }) => {
   }
   const handleSubmit = async(e) => {
     e.preventDefault();
-    setLoading(false);
+    setLoading(true);
     setErrors({});
     try {
         const res = await fetch("https://api01.f8team.dev/api/products", {
