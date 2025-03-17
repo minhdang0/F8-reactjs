@@ -7,11 +7,12 @@ const Search = () => {
   const params = new URLSearchParams(location.search);
   const [loading, setLoading] = useState(true)
   const [query, setQuery] = useState(params.get("q") || "");
+  const [value, setValue] = useState("");
 
   useEffect(() => {
     history.replaceState(null, null, `?q=${query}`);
   }, [query]);
-
+  let myTime;
   return (
     <div className="page-container">
       <h1 className="search-title">Tìm kiếm sản phẩm</h1>
@@ -21,11 +22,12 @@ const Search = () => {
           type="text"
           className="search-input"
           placeholder="Nhập tên sản phẩm..."
-          value={query}
+          value={value}
           onChange={(e) => {
-            const value = e.target.value;
-            setTimeout(() => {
-              setQuery(value);
+            setValue(e.target.value);
+            clearTimeout(myTime);
+            myTime = setTimeout(() => {
+              setQuery(e.target.value);
             }, 500);
           }}
         />

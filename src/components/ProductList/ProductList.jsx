@@ -7,7 +7,7 @@ function ProductList({ query }) {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(+params.get("page") || 1);
   const [sumPage, setSumPage] = useState(1);
-  const [itemsPerPage, setItemPerPage] = useState(+params.get("per_page") || 5);
+  const [itemsPerPage, setItemPerPage] = useState(+params.get("per_page") || 10);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -36,16 +36,20 @@ function ProductList({ query }) {
       ) : (
         <>
           <ul className="product-list">
-            {products.slice(0, itemsPerPage).map((item) => (
-              <li className="product-item" key={item.id}>
-                <img src={item.thumbnail} alt={item.title} className="product-image" />
-                <div className="product-info">
-                  <h3 className="product-title">{item.title}</h3>
-                  <p className="product-price">{item.price}$</p>
-                  <p className="product-stock">Còn {item.stock} sản phẩm</p>
-                </div>
-              </li>
-            ))}
+            {products.length === 0 ? (
+              <li><p>Chưa có sản phẩm nào</p></li>
+            ) :(
+              products.slice(0, itemsPerPage).map((item) => (
+                <li className="product-item" key={item.id}>
+                  <img src={item.thumbnail} alt={item.title} className="product-image" />
+                  <div className="product-info">
+                    <h3 className="product-title">{item.title}</h3>
+                    <p className="product-price">{item.price}$</p>
+                    <p className="product-stock">Còn {item.stock} sản phẩm</p>
+                  </div>
+                </li>
+              ))
+            )}
           </ul>
 
           <div className="pagination-container">
@@ -55,12 +59,15 @@ function ProductList({ query }) {
                 id="itemsPerPage"
                 className="items-select"
                 value={itemsPerPage}
-                onChange={(e) => setItemPerPage(Number(e.target.value))}
+                onChange={(e) => {
+                  setItemPerPage(Number(e.target.value))
+                  setCurrentPage(1);
+                }}
               >
-                <option value="5">5</option>
                 <option value="10">10</option>
-                <option value="15">15</option>
                 <option value="20">20</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
               </select>
             </div>
             <div className="pagination">
@@ -91,8 +98,9 @@ function ProductList({ query }) {
           </div>
         </>
       )}
-      {!loading && <p className="empty-message">Không có sản phẩm nào.</p>}
+  
     </div>
+    
   );
 }
 

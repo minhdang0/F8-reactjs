@@ -40,7 +40,7 @@ const ProductForm = ({ submitTitle = "" , setLoading}) => {
       const {name, value} = e.target;
       setProduct({
         ...product,
-        [name] : name === "tag" ? value.split(",") : value
+        [name] : name === "tags" ? value.split(",").map((tag) => tag.trim()) : value,
       })
   }
   const handleSubmit = async(e) => {
